@@ -1,0 +1,127 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+model User {
+  id       String   @id @default(cuid())
+  name     String?
+  email    String   @unique
+  password String
+  image    String?
+  role     UserRole @default(USER)
+
+  resumes Resume[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Resume {
+  id String @id @default(cuid())
+
+  title    String
+  jobTitle String?
+  summary  String?
+
+  fullName String?
+  email    String?
+  phone    String?
+  location String?
+  website  String?
+  linkedin String?
+  github   String?
+
+  template String @default("modern")
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  experiences    Experience[]
+  educations     Education[]
+  skills         Skill[]
+  projects       Project[]
+  certifications Certification[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Experience {
+  id String @id @default(cuid())
+
+  company  String
+  position String
+
+  location String?
+
+  startDate String
+  endDate   String?
+
+  current Boolean @default(false)
+
+  description String?
+
+  resumeId String
+  resume   Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+}
+
+model Education {
+  id String @id @default(cuid())
+
+  institution String
+  degree      String
+  field       String?
+
+  startDate String?
+  endDate   String?
+
+  grade String?
+
+  resumeId String
+  resume   Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+}
+
+model Skill {
+  id String @id @default(cuid())
+
+  name String
+
+  resumeId String
+  resume   Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+}
+
+model Project {
+  id String @id @default(cuid())
+
+  title String
+
+  description String?
+
+  link String?
+
+  resumeId String
+  resume   Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+}
+
+model Certification {
+  id String @id @default(cuid())
+
+  name String
+
+  issuer String?
+
+  issuedOn String?
+
+  resumeId String
+  resume   Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+}
