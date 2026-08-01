@@ -10,7 +10,8 @@ import EditorLayout from "./EditorLayout";
 import EditorSidebar from "./EditorSidebar";
 import SaveBar from "./SaveBar";
 
-import ResumePreview from "../preview/ResumePreview";
+// TEMP: Disable preview while debugging
+// import ResumePreview from "../preview/ResumePreview";
 
 import PersonalInfoSection from "../sections/PersonalInfoSection";
 import SummarySection from "../sections/SummarySection";
@@ -79,7 +80,7 @@ export default function ResumeEditor({
               onSectionChange={handleScroll}
             />
           }
-          preview={<ResumePreview />}
+          preview={<></>}
           footer={
             <SaveBar
               loading={loading}

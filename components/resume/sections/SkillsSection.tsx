@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
 import { SectionHeader } from "@/components/ui/form";
@@ -10,23 +11,29 @@ import SectionCard from "../cards/SectionCard";
 import SkillCard from "../cards/SkillCard";
 
 export default function SkillsSection() {
-  const { control } = useFormContext<ResumeFormValues>();
+  const { control, getValues } = useFormContext<ResumeFormValues>();
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: "skills",
   });
 
-  console.log("Current fields:", fields);
+  useEffect(() => {
+    console.log("Fields:", fields);
+    console.log("Form Values:", getValues());
+  }, [fields, getValues]);
 
   const handleAddSkill = () => {
-    console.log("Add Skill clicked");
+    console.log("===== ADD SKILL =====");
+    console.log("Before:", getValues("skills"));
 
     append({
       name: "",
     });
 
-    console.log("Append called");
+    setTimeout(() => {
+      console.log("After:", getValues("skills"));
+    }, 100);
   };
 
   return (
@@ -36,20 +43,14 @@ export default function SkillsSection() {
         description="Add your technical and professional skills."
       />
 
-      <p>Skills Count: {fields.length}</p>
-
       <div className="space-y-4">
-        {fields.length > 0 ? (
-          fields.map((field, index) => (
-            <SkillCard
-              key={field.id}
-              index={index}
-              onRemove={() => remove(index)}
-            />
-          ))
-        ) : (
-          <p>No skills added yet.</p>
-        )}
+        {fields.map((field, index) => (
+          <SkillCard
+            key={field.id}
+            index={index}
+            onRemove={() => remove(index)}
+          />
+        ))}
       </div>
 
       <AddItemButton onClick={handleAddSkill}>
