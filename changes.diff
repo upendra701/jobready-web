@@ -1,0 +1,23 @@
+diff --git a/components/resume/editor/ResumeEditor.tsx b/components/resume/editor/ResumeEditor.tsx
+index c2d9435..cf5bb9b 100644
+--- a/components/resume/editor/ResumeEditor.tsx
++++ b/components/resume/editor/ResumeEditor.tsx
+@@ -10,7 +10,8 @@ import EditorLayout from "./EditorLayout";
+ import EditorSidebar from "./EditorSidebar";
+ import SaveBar from "./SaveBar";
+ 
+-import ResumePreview from "../preview/ResumePreview";
++// TEMP: Disable preview while debugging
++// import ResumePreview from "../preview/ResumePreview";
+ 
+ import PersonalInfoSection from "../sections/PersonalInfoSection";
+ import SummarySection from "../sections/SummarySection";
+@@ -79,7 +80,7 @@ export default function ResumeEditor({
+               onSectionChange={handleScroll}
+             />
+           }
+-          preview={<ResumePreview />}
++          preview={<></>}
+           footer={
+             <SaveBar
+               loading={loading}

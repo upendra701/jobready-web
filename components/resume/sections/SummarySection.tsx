@@ -4,8 +4,11 @@ import { useFormContext } from "react-hook-form";
 
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { SectionHeader } from "@/components/ui/form";
 
 import type { ResumeFormValues } from "@/lib/validations/resume.schema";
+
+import SectionCard from "../cards/SectionCard";
 
 export default function SummarySection() {
   const {
@@ -14,20 +17,19 @@ export default function SummarySection() {
   } = useFormContext<ResumeFormValues>();
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h3 className="text-lg font-semibold">
-          Professional Summary
-        </h3>
-
-        <p className="text-sm text-slate-400">
-          Briefly introduce yourself and highlight your strengths,
-          experience, and career goals.
-        </p>
-      </div>
+    <SectionCard>
+      <SectionHeader
+        title="Professional Summary"
+        description="Briefly introduce yourself and highlight your strengths, experience, and career goals."
+      />
 
       <div className="space-y-2">
-        <Label htmlFor="summary">Summary</Label>
+        <Label
+          htmlFor="summary"
+          className="text-slate-900"
+        >
+          Summary
+        </Label>
 
         <Textarea
           id="summary"
@@ -42,6 +44,6 @@ export default function SummarySection() {
           </p>
         )}
       </div>
-    </div>
+    </SectionCard>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell } from "lucide-react";
+import { Bell, Menu } from "lucide-react";
 import { Session } from "next-auth";
 
 import {
@@ -10,10 +10,12 @@ import {
 
 interface TopbarProps {
   session: Session;
+  onToggleSidebar: () => void;
 }
 
 export default function Topbar({
   session,
+  onToggleSidebar,
 }: TopbarProps) {
   const initials =
     session.user?.name
@@ -24,14 +26,25 @@ export default function Topbar({
 
   return (
     <header className="sticky top-0 z-40 flex h-20 items-center justify-between border-b border-slate-800 bg-slate-900/80 px-8 backdrop-blur">
-      <div>
-        <h1 className="text-3xl font-bold">
-          Dashboard
-        </h1>
+      <div className="flex items-center gap-4">
 
-        <p className="mt-1 text-sm text-slate-400">
-          Welcome back, {session.user?.name}
-        </p>
+        <button
+          onClick={onToggleSidebar}
+          className="rounded-xl border border-slate-700 p-3 transition hover:border-blue-500 hover:bg-slate-800"
+        >
+          <Menu className="h-5 w-5" />
+        </button>
+
+        <div>
+          <h1 className="text-3xl font-bold">
+            Dashboard
+          </h1>
+
+          <p className="mt-1 text-sm text-slate-400">
+            Welcome back, {session.user?.name}
+          </p>
+        </div>
+
       </div>
 
       <div className="flex items-center gap-4">

@@ -1,7 +1,7 @@
 "use client";
 
 import { FormProvider } from "react-hook-form";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import type { Resume } from "@prisma/client";
 
@@ -40,6 +40,8 @@ export default function ResumeEditor({
     resume,
   });
 
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+
   const sectionRefs = {
     personal: useRef<HTMLDivElement>(null),
     summary: useRef<HTMLDivElement>(null),
@@ -65,6 +67,7 @@ export default function ResumeEditor({
     <FormProvider {...form}>
       <form onSubmit={handleSubmit}>
         <EditorLayout
+          sidebarOpen={sidebarOpen}
           header={
             <EditorHeader
               title={
@@ -73,6 +76,10 @@ export default function ResumeEditor({
                   : "Edit Resume"
               }
               mode={mode}
+              sidebarOpen={sidebarOpen}
+              onToggleSidebar={() =>
+                setSidebarOpen((prev) => !prev)
+              }
             />
           }
           sidebar={

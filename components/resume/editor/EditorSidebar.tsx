@@ -6,6 +6,7 @@ import {
   Briefcase,
   GraduationCap,
   Wrench,
+  CheckCircle2,
 } from "lucide-react";
 
 export type ResumeSection =
@@ -57,10 +58,16 @@ export default function EditorSidebar({
   onSectionChange,
 }: EditorSidebarProps) {
   return (
-    <aside className="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-xl">
-      <h2 className="mb-6 text-lg font-semibold text-white">
-        Resume Builder
-      </h2>
+    <aside className="sticky top-24 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="mb-6">
+        <h2 className="text-xl font-bold text-slate-900">
+          Resume Builder
+        </h2>
+
+        <p className="mt-1 text-sm text-slate-500">
+          Complete each section to build your resume.
+        </p>
+      </div>
 
       <nav className="space-y-2">
         {sections.map((section) => {
@@ -71,17 +78,40 @@ export default function EditorSidebar({
               key={section.id}
               type="button"
               onClick={() => onSectionChange(section.id)}
-              className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-slate-300 transition-all duration-200 hover:bg-indigo-600 hover:text-white"
+              className="group flex w-full items-center gap-3 rounded-xl border border-transparent px-4 py-3 text-left transition-all duration-200 hover:border-blue-100 hover:bg-blue-50"
             >
-              <Icon size={18} />
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 text-slate-700 transition-colors group-hover:bg-blue-600 group-hover:text-white">
+                <Icon size={18} />
+              </div>
 
-              <span className="text-sm font-medium">
+              <span className="text-sm font-semibold text-slate-700 group-hover:text-blue-700">
                 {section.label}
               </span>
             </button>
           );
         })}
       </nav>
+
+      <div className="mt-8 rounded-xl bg-slate-50 p-4">
+        <div className="mb-2 flex items-center gap-2">
+          <CheckCircle2
+            size={18}
+            className="text-emerald-600"
+          />
+
+          <span className="text-sm font-semibold text-slate-800">
+            Resume Progress
+          </span>
+        </div>
+
+        <div className="h-2 overflow-hidden rounded-full bg-slate-200">
+          <div className="h-full w-1/5 rounded-full bg-blue-600" />
+        </div>
+
+        <p className="mt-2 text-xs text-slate-500">
+          Progress tracking will update automatically.
+        </p>
+      </div>
     </aside>
   );
 }

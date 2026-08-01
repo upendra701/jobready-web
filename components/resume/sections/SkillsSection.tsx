@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
 import { SectionHeader } from "@/components/ui/form";
@@ -11,29 +10,17 @@ import SectionCard from "../cards/SectionCard";
 import SkillCard from "../cards/SkillCard";
 
 export default function SkillsSection() {
-  const { control, getValues } = useFormContext<ResumeFormValues>();
+  const { control } = useFormContext<ResumeFormValues>();
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: "skills",
   });
 
-  useEffect(() => {
-    console.log("Fields:", fields);
-    console.log("Form Values:", getValues());
-  }, [fields, getValues]);
-
   const handleAddSkill = () => {
-    console.log("===== ADD SKILL =====");
-    console.log("Before:", getValues("skills"));
-
     append({
       name: "",
     });
-
-    setTimeout(() => {
-      console.log("After:", getValues("skills"));
-    }, 100);
   };
 
   return (
@@ -41,6 +28,8 @@ export default function SkillsSection() {
       <SectionHeader
         title="Skills"
         description="Add your technical and professional skills."
+        className="text-slate-900"
+        descriptionClassName="text-slate-600"
       />
 
       <div className="space-y-4">
